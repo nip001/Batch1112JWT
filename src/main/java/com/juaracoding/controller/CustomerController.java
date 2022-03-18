@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +42,9 @@ public class CustomerController {
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
 	
+	@Autowired
+	PasswordEncoder pEncoder;
+	
 	@GetMapping("/")
 	private List<CustomerCustomeGetNameModel> getAllFullName() {
 		return customerRepository.getAllDataFirstNameLastName();
@@ -60,7 +65,15 @@ public class CustomerController {
 		return "Update berhasil !";
 	}
 	
-	@PostMapping("/authenticate")
+	@PostMapping("/registrasi")
+	private ResponseEntity<String> saveCustomer(@RequestBody CustomerModel customer) {
+		customer.setPassword(pEncoder.encode(customer.getPassword()));
+		customerRepository.save(customer);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body("Berhasil di buat");
+	}
+	
+	@PostMapping("/login")
 	private ResponseEntity<?> login(@RequestBody CustomerModel customerModel) throws Exception {
 		authenticate(customerModel.getUsername(),customerModel.getPassword());
 		
