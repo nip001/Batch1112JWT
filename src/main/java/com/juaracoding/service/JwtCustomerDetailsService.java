@@ -14,13 +14,13 @@ import com.juaracoding.model.CustomerModel;
 import com.juaracoding.repository.CustomerRepository;
 
 @Service
-public class JwtCustomerDetailService implements UserDetailsService{
+public class JwtCustomerDetailsService implements UserDetailsService{
 
 	@Autowired
 	CustomerRepository customerRepository;
 	
-//	@Autowired
-//	PasswordEncoder pEncoder;
+	@Autowired
+	PasswordEncoder pEncoder;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

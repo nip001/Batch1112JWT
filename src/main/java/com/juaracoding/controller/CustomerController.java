@@ -22,7 +22,7 @@ import com.juaracoding.config.JwtTokenUtil;
 import com.juaracoding.model.CustomerCustomeGetNameModel;
 import com.juaracoding.model.CustomerModel;
 import com.juaracoding.repository.CustomerRepository;
-import com.juaracoding.service.JwtCustomerDetailService;
+import com.juaracoding.service.JwtCustomerDetailsService;
 
 @RestController
 @RequestMapping("/customer")
@@ -35,7 +35,7 @@ public class CustomerController {
 	CustomerRepository customerRepository;
 	
 	@Autowired
-	JwtCustomerDetailService jwtCustomerDetailService;
+	JwtCustomerDetailsService jwtCustomerDetailService;
 	
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
@@ -60,7 +60,7 @@ public class CustomerController {
 		return "Update berhasil !";
 	}
 	
-	@PostMapping("/login")
+	@PostMapping("/authenticate")
 	private ResponseEntity<?> login(@RequestBody CustomerModel customerModel) throws Exception {
 		authenticate(customerModel.getUsername(),customerModel.getPassword());
 		

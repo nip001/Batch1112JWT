@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.juaracoding.service.JwtCustomerDetailService;
+import com.juaracoding.service.JwtCustomerDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -23,7 +23,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 public class JwtRequestFilter extends OncePerRequestFilter{
 
 	@Autowired
-	JwtCustomerDetailService jwtCustomerDetailService;
+	JwtCustomerDetailsService jwtCustomerDetailService;
 	
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
